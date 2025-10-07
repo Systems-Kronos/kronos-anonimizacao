@@ -6,15 +6,17 @@ from psycopg2 import Error
 load_dotenv()
 
 def conn():
-    try: 
+    try:
+        #conecta o banco de dados
         conecta = pg.connect(
-            dbname=os.getenv("DB_NAME"),  # Corrigido de db_name para dbname
+            dbname=os.getenv("DB_NAME"),  
             user=os.getenv("DB_USER"),
             password=os.getenv("DB_PASSWORD"),
             host=os.getenv("DB_HOST"),
             port=os.getenv("DB_PORT")
         )
-        db_name = conecta.get_dsn_parameters()['dbname']  # Corrigido para 'dbname'
+        #printar o nome do banco de dados conectado
+        db_name = conecta.get_dsn_parameters()['dbname']
         print(f"Conexão bem sucedida ao banco de dados: {db_name}")
         return conecta
     except Error as e:
@@ -22,6 +24,6 @@ def conn():
         return None  # Retornar None explicitamente em caso de erro
 
 def desconecta(conecta):
-    if conecta:
+    if conecta: #se conexão existir, desconecta.
         conecta.close()
         print("Conexão encerrada.")
