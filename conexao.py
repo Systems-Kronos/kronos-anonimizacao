@@ -7,7 +7,7 @@ load_dotenv()
 
 def conn():
     try:
-        #conecta o banco de dados
+        # Conecta o banco de dados
         conecta = pg.connect(
             dbname=os.getenv("DB_NAME"),  
             user=os.getenv("DB_USER"),
@@ -15,15 +15,15 @@ def conn():
             host=os.getenv("DB_HOST"),
             port=os.getenv("DB_PORT")
         )
-        #printar o nome do banco de dados conectado
+        # Printa o nome do banco de dados conectado
         db_name = conecta.get_dsn_parameters()['dbname']
         print(f"Conexão bem sucedida ao banco de dados: {db_name}")
         return conecta
     except Error as e:
         print(f"Erro ao 00conectar com o banco de dados: {e}")
-        return None  # Retornar None explicitamente em caso de erro
+        return None  # Retorna None explicitamente em caso de erro
 
 def desconecta(conecta):
-    if conecta: #se conexão existir, desconecta.
+    if conecta: # Se a conexão existir, desconecta.
         conecta.close()
         print("Conexão encerrada.")
